@@ -7,6 +7,7 @@ import { ImBooks } from "react-icons/im";
 import { FaChalkboardTeacher,FaTshirt } from "react-icons/fa";
 import { MdOutlineSportsCricket } from "react-icons/md";
 import { FaBowlFood } from "react-icons/fa6";
+import Footer from "../components/Footer";
 const Home = () => {
   return (
     <>
@@ -191,8 +192,8 @@ const Home = () => {
           </div>
         </section>
         {/* news letter */}
-        <section className="max-w-[95rem] mx-auto px-8 bg-[#00b4d8] h-72 md:h-96 md:px-10  my-5">
-          <div className=" text-white p-8 rounded-md ">
+        <section className="max-w-[95rem] mx-auto px-8 bg-[#00b4d8] h-72 md:h-96 md:px-10 flex justify-center items-center my-5">
+          <div className=" text-white p-6 rounded-md ">
             <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl text-center  md:text-4xl lg:text-5xl/none">
               Subscribe to our Newsletter
             </h2>
@@ -212,6 +213,7 @@ const Home = () => {
           </div>
         </section>
       </main>
+      <Footer />
     </>
   );
 };
