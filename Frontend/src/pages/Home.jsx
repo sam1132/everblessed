@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "../components/Navbar";
 import heroImg from "../assets/hero.jpg";
 import { CiForkAndKnife } from "react-icons/ci";
 import { GiClothes } from "react-icons/gi";
@@ -7,11 +6,9 @@ import { ImBooks } from "react-icons/im";
 import { FaChalkboardTeacher,FaTshirt } from "react-icons/fa";
 import { MdOutlineSportsCricket } from "react-icons/md";
 import { FaBowlFood } from "react-icons/fa6";
-import Footer from "../components/Footer";
 const Home = () => {
   return (
     <>
-      <Navbar />
       <main>
         <header className="max-w-[95rem] mx-auto h-[356px] bg-[#00b4d8] px-8 md:px-10 pt-7  md:pt-0 ">
           <div className="flex flex-col md:flex-row  ">
@@ -213,7 +210,6 @@ const Home = () => {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 };
