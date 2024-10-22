@@ -1,8 +1,13 @@
 import React from 'react'
-
+import { Route, Routes } from 'react-router-dom'
+import AllNgosPage from "../pages/Allngopage";
+import NgoDashboard from "../pages/NgoDashboard";
 const NgoRoutes = () => {
   return (
-    <div>NgoRoutes</div>
+    <Routes>
+        <Route path="/allngos" element={<AllNgosPage />} />
+        <Route path="/dashboard" element={<NgoDashboard />} />
+    </Routes>
   )
 }
 

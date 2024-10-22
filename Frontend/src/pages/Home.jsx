@@ -6,7 +6,11 @@ import { ImBooks } from "react-icons/im";
 import { FaChalkboardTeacher,FaTshirt } from "react-icons/fa";
 import { MdOutlineSportsCricket } from "react-icons/md";
 import { FaBowlFood } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 const Home = () => {
+  const navigate = useNavigate();
+  
+const handleNavigate = () => {navigate("/ngo/allngos")};
   return (
     <>
       <main>
@@ -24,7 +28,7 @@ const Home = () => {
                 </p>
               </div>
               <div className="flex flex-col md:flex-row mt-9">
-                <button className="bg-[#ff5252] hover:bg-[#ff3333] cursor-pointer text-white font-semibold p-2 rounded-md">
+                <button onClick={handleNavigate} className="bg-[#ff5252] hover:bg-[#ff3333] cursor-pointer text-white font-semibold p-2 rounded-md">
                   Donate Now
                 </button>
                 <button className="bg-white text-[#00b4d8] hover:bg-gray-100 p-2 rounded-md font-semibold md:ml-4 mt-4 md:mt-0">

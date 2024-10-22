@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
-import { FaBoxArchive, FaHeart, FaBars } from "react-icons/fa6";
+import { FaBoxArchive, FaBars } from "react-icons/fa6";
 import { FaTimes } from "react-icons/fa";
 
 
@@ -87,7 +87,7 @@ const Navbar = () => {
                       aria-labelledby="options-menu"
                     >
                       <NavLink
-                        to="/profile"
+                        to="/user/profile"
                         className="flex gap-x-2 items-center px-4 py-2 text-lg text-gray-700 hover:text-black hover:bg-gray-100"
                         role="menuitem"
                       >
@@ -97,7 +97,7 @@ const Navbar = () => {
                         Profile
                       </NavLink>
                       <NavLink
-                        to="/mydonations"
+                        to="/user/mydonations"
                         className="flex items-center gap-x-2 px-4 py-2 text-lg text-gray-700 hover:text-black hover:bg-gray-100"
                         role="menuitem"
                       >
