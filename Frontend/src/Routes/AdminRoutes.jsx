@@ -1,8 +1,15 @@
 import React from 'react'
+import AdminDashboard from '../pages/AdminDashboard'
 
 const AdminRoutes = () => {
   return (
-    <div>AdminRoutes</div>
+    <div>
+      <div>
+        <AdminDashboard/>
+      </div>
+
+    </div>
+    
   )
 }
 
