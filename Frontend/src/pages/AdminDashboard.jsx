@@ -1,57 +1,33 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import AdminNavbar from '../components/AdminNavbar';
+import AdminOverview from './AdminOverview';
+import DonorList from './DonorList';
+import NGOList  from './NGOList';
+import AdminReport from './AdminReport';
 
 const AdminDashboard = () => {
     return (
-        <div>
-            <h1>Admin Dashboard</h1>
-            <p>Welcome to the admin dashboard. Here you can manage the application.</p>
+        <>
+
+        <div className='max-w-[105rem] mx-auto px-8 md:px-10 pt-7 md:pt-0 my-10 grid grid-cols-5 space-x-2'>
+           <div className='col-span-1'>
+           <AdminNavbar/>    
+            </div> 
+            <div className='col-span-4'>
+                {/* Adding admin dashboar individual components */}
+                <Routes>
+                        <Route path="/overview" element={<AdminOverview />} />
+                        <Route path="/donors" element={<DonorList/>}/>
+                        <Route path='/ngos' element={<NGOList/>}/>
+                        <Route path="/report" element={<AdminReport/>}/>
+                    </Routes>
             
-            {/* Main stats section */}
-            <div className="main grid grid-cols-3 gap-3 mb-8 ">
-                {/* Total Donation */}
-                <div className='p-4 bg-gray-100 rounded shadow'>
-                    Total Donation
-                    <div className='font-bold font-sans text-2xl'>
-                        363
-                    </div>
-                </div>
-                
-                {/* Last month TOTAL Donation */}
-                <div className='p-4 bg-gray-100 rounded shadow'>
-                    Last month Donation
-                    <div className='font-bold font-sans text-2xl'>
-                        45
-                    </div>
-                </div>
-                
-                {/* TOTAL Donors */}
-                <div className='p-4 bg-gray-100 rounded shadow'>
-                    Total Donors
-                    <div className='font-bold font-sans text-2xl'>
-                        200
-                    </div>
-                </div>
-            </div>
-
-            {/* Other sections */}
-            <div className='grid grid-cols-3 gap-4'>
-                {/* Statistics */}
-                <div className='col-span-2 p-4 bg-gray-200 rounded shadow'>
-                    Statistics
-                </div>
-
-                {/* Fundraiser Status */}
-                <div className='p-4 bg-gray-200 rounded shadow'>
-                    Fundraiser Status
-                </div>
-            </div>
-
-
-            {/* List of donors */}
-            <div className='p-4 bg-gray-200 rounded shadow mt-4'>
-                List of Top Donors
             </div>
         </div>
+
+        
+        </>
     );
 };
 
