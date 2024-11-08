@@ -33,8 +33,7 @@ const userSchema = new mongoose.Schema(
       default: "user", 
       required: true,
     },
-    pastdonations: [{ type: mongoose.Schema.Types.ObjectId, ref: "Donation" }],
-    recentdonation: { type: mongoose.Schema.Types.ObjectId, ref: "Donation" },
+    donations: [{ type: mongoose.Schema.Types.ObjectId, ref: "Donation" }],
   },
   { timestamps: true }
 );
