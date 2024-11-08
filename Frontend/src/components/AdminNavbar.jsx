@@ -7,10 +7,10 @@ import NGOList from '../pages/NGOList';
 const AdminNavbar = () => {
   return (
     
-    <div>
+    <div className='mr-4 '>
       
         {/* Sidebar / Navigation Bar */}
-        <div className="w-full h-full bg-gray-800 text-white p-4">
+        <div className="w-[23rem]  md:w-full md:h-screen rounded-md bg-gray-800 text-white p-4">
           <h2 className="text-xl font-bold mb-6">Admin Dashboard</h2>
           <ul>
             <li className="mb-4">

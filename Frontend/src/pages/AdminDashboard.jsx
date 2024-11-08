@@ -10,11 +10,11 @@ const AdminDashboard = () => {
     return (
         <>
 
-        <div className='max-w-[105rem] mx-auto px-8 md:px-10 pt-7 md:pt-0 my-10 grid grid-cols-5 space-x-2'>
-           <div className='col-span-1'>
+        <div className='max-w-[95rem] mx-auto px-8 md:px-10 pt-7 md:pt-0 my-10 grid md:grid-cols-5 space-x-2'>
+           <div className='md:col-span-1 mb-10 md:mb-0'>
            <AdminNavbar/>    
             </div> 
-            <div className='col-span-4'>
+            <div className='md:col-span-4'>
                 {/* Adding admin dashboar individual components */}
                 <Routes>
                         <Route path="/overview" element={<AdminOverview />} />
