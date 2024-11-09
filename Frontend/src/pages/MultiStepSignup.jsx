@@ -135,6 +135,18 @@ const MultiStepSignup = () => {
                     placeholder="Address"
                     className="w-full p-2 mb-3 border rounded outline-none"
                   />
+                   <input
+                    type="text"
+                    {...register("state")}
+                    placeholder="State"
+                    className="w-full p-2 mb-3 border rounded outline-none"
+                  />
+                   <input
+                    type="text"
+                    {...register("city")}
+                    placeholder="City"
+                    className="w-full p-2 mb-3 border rounded outline-none"
+                  />
 
                   <div className="flex justify-between mt-4">
                     <button
