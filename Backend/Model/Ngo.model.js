@@ -23,26 +23,28 @@ const ngoSchema = new mongoose.Schema({
         type: [String],
         enum: ['book', 'blankets', 'toys', 'food', 'anything'],
         default: ['anything'],  
+        
     },
 
 // adding social media handles
    socialLinks:{
     insta:{
         type:String,
-        default: None
+        default: null
     },
     facebook:{
         type:String,
-        default: None
+        default: null
     },
     twitter:{
         type:String,
-        default: None
+        default: null
     },
    },
     usersDonated: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',}],
+        ref: 'User',
+    }],
     ngoType: {
         type: String,
         required: true,

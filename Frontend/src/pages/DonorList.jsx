@@ -1,35 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const DonorList = () => {
-    const [donors, setDonors] = useState([
-        { id: 1, name: 'John Doe', email: 'johndoe@example.com', Donation: 100, date: new Date(), Message: 'Thank you! This message is longer than usual to test line wrapping in the table.' },
-        { id: 2, name: 'Jane Smith', email: 'janesmith@example.com', Donation: 50, date: new Date(), Message: 'Happy to help!' },
-        { id: 3, name: 'John Doe', email: 'johndoe@example.com', Donation: 200, date: new Date(), Message: 'Thank you! This message is longer than usual to test line wrapping in the table.' },
-        { id: 4, name: 'John Doe', email: 'johndoe@example.com', Donation: 300, date: new Date(), Message: 'Thank you! This message is longer than usual to test line wrapping in the table.' },
-        { id: 5, name: 'John Doe', email: 'johndoe@example.com', Donation: 400, date: new Date(), Message: 'Thank you! This message is longer than usual to test line wrapping in the table.' },
-        { id: 6, name: 'John Doe', email: 'johndoe@example.com', Donation: 500, date: new Date(), Message: 'Thank you! This message is longer than usual to test line wrapping in the table.' },
-        { id: 7, name: 'John Doe', email: 'johndoe@example.com', Donation: 600, date: new Date(), Message: 'Thank you! This message is longer than usual to test line wrapping in the table.' },
-        { id: 8, name: 'John Doe', email: 'johndoe@example.com', Donation: 700, date: new Date(), Message: 'Thank you! This message is longer than usual to test line wrapping in the table.' },
-        { id: 9, name: 'John Doe', email: 'johndoe@example.com', Donation: 800, date: new Date(), Message: 'Thank you! This message is longer than usual to test line wrapping in the table.' },
-        { id: 10, name: 'John Doe', email: 'johndoe@example.com', Donation: 900, date: new Date(), Message: 'Thank you! This message is longer than usual to test line wrapping in the table.' },
-        { id: 11, name: 'John Doe', email: 'johndoe@example.com', Donation: 1000, date: new Date(), Message: 'Thank you! This message is longer than usual to test line wrapping in the table.' },
-        { id: 12, name: 'John Doe', email: 'johndoe@example.com', Donation: 1100, date: new Date(), Message: 'Thank you! This message is longer than usual to test line wrapping in the table.' },
-    ]);
-
+    const [donors, setDonors] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
     const recordsPerPage = 10;
-    const lastIndex = currentPage * recordsPerPage;
-    const firstIndex = lastIndex - recordsPerPage;
-    const records = donors.slice(firstIndex, lastIndex);
-    const npage = Math.ceil(donors.length / recordsPerPage);
+
+    const fetchDonors = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            const startIndex = (currentPage - 1) * recordsPerPage;
+            const endIndex = currentPage * recordsPerPage - 1;
+            const response = await axios.get(`http://localhost:4000/admin/getDonationslist`, {
+                params: { startIndex, endIndex }
+            });
+            setDonors(response.data.donors);
+            setTotalPages(response.data.totalPages);
+        } catch (err) {
+            setError('Failed to fetch donors');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchDonors();
+    }, [currentPage]);
 
     const nextPage = () => {
-        if (currentPage < npage) {
+        if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1);
         }
     };
 
-    const prePage = () => {
+    const prevPage = () => {
         if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
         }
@@ -49,9 +59,21 @@ const DonorList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {records.length > 0 ? (
-                            records.map((donor) => (
-                                <tr key={donor.id} className="border-t">
+                        {loading ? (
+                            <tr>
+                                <td colSpan={5} className="text-center py-4 text-sm sm:text-base">
+                                    Loading...
+                                </td>
+                            </tr>
+                        ) : error ? (
+                            <tr>
+                                <td colSpan={5} className="text-center py-4 text-sm sm:text-base">
+                                    {error}
+                                </td>
+                            </tr>
+                        ) : donors.length > 0 ? (
+                            donors.map((donor) => (
+                                <tr key={donor.id || donor.email}> {/* Ensure unique key */}
                                     <td className="px-2 py-2 text-xs sm:text-sm md:text-base whitespace-normal">{donor.name}</td>
                                     <td className="px-2 py-2 text-xs sm:text-sm md:text-base whitespace-pre">{donor.email}</td>
                                     <td className="px-2 py-2 text-xs sm:text-sm md:text-base whitespace-normal">{donor.Donation}</td>
@@ -62,19 +84,20 @@ const DonorList = () => {
                         ) : (
                             <tr>
                                 <td colSpan={5} className="text-center py-4 text-sm sm:text-base">
-                                    No order history
+                                    No donors found
                                 </td>
                             </tr>
                         )}
                     </tbody>
                 </table>
             </div>
+
             <div className="flex justify-center mt-4 space-x-2">
-                <button className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50" onClick={prePage} disabled={currentPage === 1}>
+                <button className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50" onClick={prevPage} disabled={currentPage === 1}>
                     Previous
                 </button>
                 <span className="px-4 py-2">{currentPage}</span>
-                <button className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50" onClick={nextPage} disabled={currentPage === npage}>
+                <button className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50" onClick={nextPage} disabled={currentPage === totalPages}>
                     Next
                 </button>
             </div>
