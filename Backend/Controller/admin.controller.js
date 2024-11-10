@@ -226,11 +226,11 @@ export const getLatestDonors = asyncHandler(async (req, res) => {
       {
         $project: {
           _id: 0,
-          email: "$donorDetails.email", // Include the email of the donor
-          name: "$donorDetails.name", // Include the name of the donor
-          campaign: "$donationName", // Include the campaign name
-          time: "$createdAt", // Include the donation timestamp
-          donation: "$donationType" // Include the donation type
+          email: "$donorDetails.email", 
+          name: "$donorDetails.name", 
+          campaign: "$donationName", 
+          time: "$createdAt", 
+          donation: "$donationType" 
         }
       },
       {

@@ -242,6 +242,7 @@ const AdminOverview = () => {
     const fetchLatestDonors = async () => {
       try {
         const response = await axios.get("http://localhost:4000/admin/getLatestDonors");
+        console.log(response.data);
         setDonors(response.data); // Set fetched donors to state
         setLoading(false); // Set loading to false after data is fetched
       } catch (error) {
@@ -258,29 +259,29 @@ const AdminOverview = () => {
       {/* Main stats section */}
       <div className="main grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
         {/* Total Donation */}
-        <div className="p-4 bg-gray-100 rounded shadow-md  w-[21.5rem] md:w-full lg:w-full">
-          <p className="text-xl lg:text-2xl font-semibold">Total Donations</p>
+        <div className="p-4 bg-[#07c8f9] rounded shadow-md  w-[21.5rem] md:w-full lg:w-full">
+          <p className="text-xl lg:text-2xl  text-white font-semibold">Total Donations</p>
           <div className="flex items-center my-5 font-sans font-bold text-xl md:text-2xl">
       <FaHandHoldingHeart className="mr-4 bg-purple-200 text-purple-400 h-10 w-10 p-2 rounded-full" />
-      <span>{totalDonations}</span>
+      <span className="text-white">{totalDonations}</span>
     </div>
         </div>
 
         {/* Last month TOTAL Donation */}
-        <div className="p-4 bg-gray-100 rounded shadow-md w-[21.5rem] md:w-full lg:w-full">
-      <p className="text-xl lg:text-2xl font-semibold">Last Month Donation</p>
+        <div className="p-4 bg-[#0a85ed] rounded shadow-md w-[21.5rem] md:w-full lg:w-full">
+      <p className="text-xl lg:text-2xl text-white font-semibold">Last Month Donation</p>
       <div className="flex items-center my-5 font-sans font-bold text-xl md:text-2xl">
         <FaCalendarAlt className="mr-4 bg-green-200 text-green-400 h-10 w-10 p-2 rounded-full" />
-        <span>{lastMonthDonations}</span>
+        <span className="text-white">{lastMonthDonations}</span>
       </div>
     </div>
 
         {/* TOTAL Donors */}
-        <div className="p-4 bg-gray-100 rounded shadow-md w-[21.5rem] md:w-full lg:w-full">
-      <p className="text-xl lg:text-2xl font-semibold">Total Donors</p>
+        <div className="p-4 bg-[#0d41e1] rounded shadow-md w-[21.5rem] md:w-full lg:w-full">
+      <p className="text-xl lg:text-2xl text-white font-semibold">Total Donors</p>
       <div className="flex items-center my-5 font-sans font-bold text-xl md:text-2xl">
         <FaUser className="mr-4 bg-orange-200 text-orange-400 h-10 w-10 p-2 rounded-full" />
-        <span>{totalDonors}</span>
+        <span className="text-white">{totalDonors}</span>
       </div>
     </div>
       </div>
@@ -304,8 +305,8 @@ const AdminOverview = () => {
         </div>
 
         {/* Fundraiser Status */}
-        <div className="p-4 bg-gray-200 rounded shadow-md w-[21.5rem] md:w-full lg:w-full">
-          <div className="font-bold text-lg">Donations by Category
+        <div className="p-1 bg-gray-200 rounded shadow-md w-[21.5rem] md:w-full lg:w-full">
+          <div className="font-bold text-lg text-center">Donations by Category
 
 
 
@@ -316,13 +317,13 @@ const AdminOverview = () => {
       </div>
 
       {/* List of donors */}
-      <div className="p-4 w-[21.5rem] md:w-full lg:w-full bg-gray-200 rounded shadow-md mt-4">
+      <div className="p-4 w-[21.5rem] md:w-full lg:w-full bg-[#71a9f7] rounded shadow-md mt-4">
       <div className="font-bold mb-2">List of Latest Donors</div>
       <div className="table-auto overflow-x-auto">
-        <table className="w-full text-sm">
+        <table className="w-full text-sm bg-[#71a9f7]">
           <thead>
             <tr>
-              <th className="px-2 py-1 text-left">Email</th>
+              <th className="px-2 py-1 text-left ">Email</th>
               <th className="px-2 py-1 text-left">Name</th>
               <th className="px-2 py-1 text-left">Campaign</th>
               <th className="px-2 py-1 text-left">Time</th>
@@ -340,10 +341,12 @@ const AdminOverview = () => {
             ) : donors.length > 0 ? (
               donors.map((donor, index) => (
                 <tr key={index}>
-                  <td className="border px-2 py-1 text-purple-600">{donor.email}</td>
+                  <td className="border px-2 py-1 font-semibold text-white">{donor.email}</td>
                   <td className="border px-2 py-1">{donor.name}</td>
-                  <td className="border px-2 py-1">{donor.campaign}</td>
-                  <td className="border px-2 py-1">{donor.time}</td>
+                  {/* <td className="border px-2 py-1">{donor.campaign}</td> */}
+                  <td className="border px-2 py-1">Doantion for Children</td>
+                  <td className="border px-2 py-1">{new Date(donor.time).toLocaleDateString()}</td>  
+                  {/* <td className="border px-2 py-1">{donor.time}</td> */}
                   <td className="border px-2 py-1">{donor.donation}</td>
                 </tr>
               ))

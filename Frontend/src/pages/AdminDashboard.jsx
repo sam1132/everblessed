@@ -11,7 +11,7 @@ const AdminDashboard = () => {
         <>
 
         <div className='max-w-[95rem] mx-auto px-8 md:px-10  md:pt-0 my-10 grid md:grid-cols-5 space-x-2'>
-           <div className='md:col-span-2 lg:col-span-1 mb-10 md:mb-0'>
+           <div className='md:col-span-2 lg:col-span-1 md:h-full mb-10 md:mb-0'>
            <AdminNavbar/>    
             </div> 
             <div className='md:col-span-3 lg:col-span-4'>
