@@ -38,7 +38,9 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     donations: [{ type: mongoose.Schema.Types.ObjectId, ref: "Donation" }],
+    donationCount: { type: Number, default: 0 },
   },
+  
   { timestamps: true }
 );
 const  User = mongoose.model("User", userSchema);
