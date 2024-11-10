@@ -8,7 +8,7 @@ const NgoRoutes = () => {
     <Routes>
         <Route path="/allngos" element={<AllNgosPage />} />
         <Route path="/donate" element={<DonationForm />} />
-        <Route path="/dashboard" element={<NgoDashboard />} />
+        <Route path="/dashboard/*" element={<NgoDashboard />} />
     </Routes>
   )
 }

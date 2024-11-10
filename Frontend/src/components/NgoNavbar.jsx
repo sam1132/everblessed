@@ -5,7 +5,7 @@ import { CgProfile } from "react-icons/cg";
 const NgoNavbar = () => {
   return (
     <>
-      <aside className="md:w-64  bg-white w-full  md:h-screen shadow-lg">
+      <aside className="md:w-64 rounded-md mt-7 md:mt-10 bg-white w-[22rem] py-5  md:h-screen shadow-lg">
         <h2 className="font-bold text-xl md:text-2xl p-6">NGO Dashboard</h2>
         <nav className="mt-8 cursor-pointer ">
           <ul>
@@ -13,7 +13,7 @@ const NgoNavbar = () => {
                
             <FaHome className="text-green-400  text-xl font-bold"/>   
               <Link
-                to="/ngo/overview"
+                to="overview"
                 className=" text-gray-600 text-xl font-bold"
               >
                 Dashboard
@@ -23,7 +23,7 @@ const NgoNavbar = () => {
                
             <FaHandHoldingHeart className="text-purple-500  text-xl font-bold"/>   
               <Link
-                to="/ngo/donation"
+                to="donations"
                 className=" text-gray-600 text-xl font-bold"
               >
                 Donations
@@ -33,7 +33,7 @@ const NgoNavbar = () => {
                
             <FaUsers className="text-orange-400  text-xl font-bold"/>   
               <Link
-                to="/ngo/donors"
+                to="donors"
                 className=" text-gray-600 text-xl font-bold"
               >
                 Donors
@@ -43,7 +43,7 @@ const NgoNavbar = () => {
                
                <CgProfile className="text-blue-400  text-xl font-bold"/>   
                  <Link
-                   to="/ngo/profile"
+                   to="profile"
                    className=" text-gray-500  text-xl font-bold"
                  >
                    Profile
