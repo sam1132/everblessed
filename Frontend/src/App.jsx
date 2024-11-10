@@ -25,7 +25,7 @@ function Layout() {
           <Route path="/ngo/*" element={<NgoRoutes />} />
           <Route path="/admin/*" element={<AdminRoutes />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signin" element={<MultiStepSignup />} />
+          <Route path="/signup" element={<MultiStepSignup />} />
           <Route path="/about" element={<About />} />
         </Routes>
       </main>

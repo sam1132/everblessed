@@ -15,6 +15,9 @@ const ngoSchema = new mongoose.Schema({
     description: {
         type: String,
     },
+    password: {
+        type: String, 
+        required: true },
     email: {
         type: String,
         required: true,

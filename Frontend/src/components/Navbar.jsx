@@ -21,7 +21,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsAuthenticated(false);
-    navigate("/signin");
+    navigate("/login");
   };
 
   return (
@@ -58,10 +58,10 @@ const Navbar = () => {
                     Login
                   </NavLink>
                   <NavLink
-                    to="/signin"
+                    to="/signup"
                     className="text-gray-700 hover:text-blue-500 px-3 py-2 rounded-md text-md md:text-2xl font-medium"
                   >
-                    SignIn
+                    Signup
                   </NavLink>
                 </>
               )}
