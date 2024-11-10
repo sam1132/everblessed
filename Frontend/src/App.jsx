@@ -13,7 +13,7 @@ import MultiStepSignup from "./pages/MultiStepSignup";
 
 function Layout() {
   const location = useLocation();
-  const hideNavbarFooter = location.pathname.startsWith('/admin');
+  const hideNavbarFooter = location.pathname.startsWith('/admin') || location.pathname.includes("/ngo/dashboard");
 
   return (
     <div className="flex flex-col min-h-screen">

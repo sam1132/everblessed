@@ -6,7 +6,7 @@ import userRoute from './route/user.route.js';
 dotenv.config();
 const port = process.env.PORT || 5000;
 const app = express();
-//this comment is from alok
+
 connectDB();
 app.use(express.json());
 app.use(cors());
