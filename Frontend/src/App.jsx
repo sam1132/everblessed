@@ -24,8 +24,8 @@ function Layout() {
           <Route path="/" element={<Home />} />
           <Route path="/allngos" element={<AllNgosPage />} />
           <Route path="/user/*" element={<ProtectedRoute><UserRoutes /></ProtectedRoute>} />
-          <Route path="/ngo/*" element={<ProtectedRoute><NgoRoutes /></ProtectedRoute>} />
-          <Route path="/admin/*" element={<ProtectedRoute><AdminRoutes /></ProtectedRoute>} />
+          <Route path="/ngo/*" element={<NgoRoutes /> }/>
+          <Route path="/admin/*" element={<AdminRoutes />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<MultiStepSignup />} />
           <Route path="/about" element={<About />} />
