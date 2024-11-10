@@ -20,29 +20,46 @@ const Signin = () => {
     }));
   };
 
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const response = await axios.post(
-//         "http://localhost:4000/user/login",
-//         User
-//       );
-//       const token = response.data.token;
-//       if (token) {
-//         localStorage.setItem("token", token);
-//         toast.success("Login successfull");
-//         setUser({ email: "", password: "" });
-//         navigate("/");
-//         setTimeout(()=>{
-//           window.location.reload()
-//         },1000)
-//       } else {
-//         console.error("No token received from the server.");
-//       }
-//     } catch (error) {
-//       toast.error("Error login");
-//     }
-//   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/user/login",
+        User
+      );
+      const token = response.data.token;
+      const role = response.data.role;
+      if (token){
+        localStorage.setItem("token", token);
+      }
+      else{
+        console.error("No token received from the server.");
+        toast.error("Error login");
+      }
+
+      if (role === "user") {
+        toast.success("Login successfull");
+        setUser({ email: "", password: "" });
+        navigate("/");
+        setTimeout(()=>{
+          window.location.reload()
+        },1000)
+      } 
+      else if (role === "ngo") {
+        toast.success("Login successfull");
+        setUser({ email: "", password: "" });
+        navigate("/ngo/dashboard/overview");
+        setTimeout(()=>{
+          window.location.reload()
+        },1000)
+      }
+      else {
+        console.error("No token received from the server.");
+      }
+    } catch (error) {
+      toast.error("Error login");
+    }
+  };
 
   return (
     <>
@@ -57,7 +74,7 @@ const Signin = () => {
             <form
               noValidate
               className="px-10 md:px-0 md:w-[21.3rem]"
-            //   onSubmit={handleSubmit}
+              onSubmit={handleSubmit}
             >
               <h2 className="text-3xl font-bold p-2 mb-[1rem]">Log In</h2>
               <div className="py-[0.5rem] px-[2rem] relative mb-[1rem]  border-b-[1px] border-[#092327]  ">
@@ -104,12 +121,9 @@ const Signin = () => {
               <div className="mt-6 font-semibold text-md">
                 <p>
                   Create an Account
-                  <Link
-                    to={"/signup"}
-                    className="cursor-pointer text-slate-600 hover:underline"
-                  >
-                    Register
-                  </Link>
+                  <Link to="/signup" className="text-blue-600 hover:underline ml-2">
+                Register
+              </Link>
                 </p>
               </div>
             </form>

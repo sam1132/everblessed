@@ -29,16 +29,24 @@ const MultiStepSignup = () => {
     }
   };
 
-  const prevStep = () => setCurrentStep((prevStep) => Math.max(prevStep - 1, 1));
+  const prevStep = () =>
+    setCurrentStep((prevStep) => Math.max(prevStep - 1, 1));
 
   const onSubmit = async (data) => {
     try {
-        await axios.post("http://localhost:4000/api/user/signup", data);
+      data.role = role;
+      if (role === "ngo") {
+        await axios.post("http://localhost:4000/api/user/ngo-register", data);
+      }
+      else if (role === "user") {
+        await axios.post("http://localhost:4000/api/user/register", data);
+      }
       toast.success("Registration successful");
       reset();
-      navigate("/signin");
+      navigate("/login");
     } catch (error) {
       toast.error("Error during registration.");
+      console.log(error);
     }
   };
 
@@ -79,15 +87,21 @@ const MultiStepSignup = () => {
                     placeholder="Full Name"
                     className="w-full p-2 mb-3 border rounded-md outline-none"
                   />
-                  {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+                  {errors.name && (
+                    <p className="text-red-500">{errors.name.message}</p>
+                  )}
 
                   <input
                     type="text"
-                    {...register("mobileno", { required: "Mobile Number is required" })}
+                    {...register("mobileno", {
+                      required: "Mobile Number is required",
+                    })}
                     placeholder="Mobile Number"
                     className="w-full p-2 mb-3 border rounded outline-none"
                   />
-                  {errors.mobileno && <p className="text-red-500">{errors.mobileno.message}</p>}
+                  {errors.mobileno && (
+                    <p className="text-red-500">{errors.mobileno.message}</p>
+                  )}
 
                   <input
                     type="email"
@@ -95,7 +109,9 @@ const MultiStepSignup = () => {
                     placeholder="Email"
                     className="w-full p-2 mb-3 border rounded outline-none"
                   />
-                  {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+                  {errors.email && (
+                    <p className="text-red-500">{errors.email.message}</p>
+                  )}
 
                   <div className="flex justify-between mt-4">
                     <button
@@ -119,11 +135,15 @@ const MultiStepSignup = () => {
                 <>
                   <input
                     type="password"
-                    {...register("password", { required: "Password is required" })}
+                    {...register("password", {
+                      required: "Password is required",
+                    })}
                     placeholder="Password"
                     className="w-full p-2 mb-3 border rounded outline-none"
                   />
-                  {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+                  {errors.password && (
+                    <p className="text-red-500">{errors.password.message}</p>
+                  )}
 
                   <input
                     type="text"
@@ -131,16 +151,16 @@ const MultiStepSignup = () => {
                     placeholder="Address"
                     className="w-full p-2 mb-3 border rounded outline-none"
                   />
-                   <input
+                  <input
                     type="text"
-                    {...register("state")}
-                    placeholder="State"
+                    {...register("country")}
+                    placeholder="country"
                     className="w-full p-2 mb-3 border rounded outline-none"
                   />
-                   <input
+                  <input
                     type="text"
-                    {...register("city")}
-                    placeholder="City"
+                    {...register("state")}
+                    placeholder="state"
                     className="w-full p-2 mb-3 border rounded outline-none"
                   />
 
@@ -171,19 +191,29 @@ const MultiStepSignup = () => {
                   <h2 className="text-2xl font-bold mb-4">NGO Info</h2>
                   <input
                     type="text"
-                    {...register("ngoname", { required: "NGO Name is required" })}
+                    {...register("ngoname", {
+                      required: "NGO Name is required",
+                    })}
                     placeholder="NGO Name"
                     className="w-full p-2 mb-3 border rounded outline-none"
                   />
-                  {errors.ngoname && <p className="text-red-500">{errors.ngoname.message}</p>}
+                  {errors.ngoname && (
+                    <p className="text-red-500">{errors.ngoname.message}</p>
+                  )}
 
                   <input
                     type="text"
-                    {...register("registrationNumber", { required: "Registration Number is required" })}
+                    {...register("registrationNumber", {
+                      required: "Registration Number is required",
+                    })}
                     placeholder="Registration Number"
                     className="w-full p-2 mb-3 border rounded outline-none"
                   />
-                  {errors.registrationNumber && <p className="text-red-500">{errors.registrationNumber.message}</p>}
+                  {errors.registrationNumber && (
+                    <p className="text-red-500">
+                      {errors.registrationNumber.message}
+                    </p>
+                  )}
 
                   <input
                     type="email"
@@ -191,7 +221,21 @@ const MultiStepSignup = () => {
                     placeholder="Email"
                     className="w-full p-2 mb-3 border rounded outline-none"
                   />
-                  {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+                  {errors.email && (
+                    <p className="text-red-500">{errors.email.message}</p>
+                  )}
+
+                  <input
+                    type="password"
+                    {...register("password", {
+                      required: "password is required",
+                    })}
+                    placeholder="Password"
+                    className="w-full p-2 mb-3 border rounded outline-none"
+                  />
+                  {errors.password && (
+                    <p className="text-red-500">{errors.password.message}</p>
+                  )}
 
                   <div className="flex justify-between mt-4">
                     <button
@@ -215,11 +259,15 @@ const MultiStepSignup = () => {
                 <>
                   <input
                     type="text"
-                    {...register("address", { required: "Address is required" })}
+                    {...register("address", {
+                      required: "Address is required",
+                    })}
                     placeholder="Address"
                     className="w-full p-2 mb-3 border rounded outline-none"
                   />
-                  {errors.address && <p className="text-red-500">{errors.address.message}</p>}
+                  {errors.address && (
+                    <p className="text-red-500">{errors.address.message}</p>
+                  )}
 
                   <input
                     type="text"
@@ -229,10 +277,19 @@ const MultiStepSignup = () => {
                   />
 
                   <select
+                    {...register("ngoType")}
+                    className="w-full p-2 mb-3 border rounded outline-none"
+                  >
+                    <option value="public">Public</option>
+                    <option value="private">Private</option>
+                  </select>
+
+                  <select
                     {...register("thingsRequired")}
                     className="w-full p-2 mb-3 border rounded outline-none"
                   >
                     <option value="book">Books</option>
+                    <option value="food">Food</option>
                     <option value="blankets">Blankets</option>
                     <option value="toys">Toys</option>
                     <option value="stationary">Stationary</option>
@@ -263,7 +320,7 @@ const MultiStepSignup = () => {
             <p>
               Already registered?
               <Link to="/login" className="text-blue-600 hover:underline">
-                Sign In
+                Login
               </Link>
             </p>
           </div>
