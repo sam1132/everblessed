@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 const Home = () => {
   const navigate = useNavigate();
   
-const handleNavigate = () => {navigate("/ngo/allngos")};
+const handleNavigate = () => {navigate("/allngos")};
   return (
     <>
       <main>

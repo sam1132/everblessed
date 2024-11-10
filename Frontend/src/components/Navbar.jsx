@@ -66,7 +66,7 @@ const Navbar = () => {
                 </>
               )}
               <NavLink
-                to="/ngo/allngos"
+                to="/allngos"
                 className="text-gray-700 hover:text-blue-500 px-3 py-2 rounded-md text-md md:text-2xl font-medium"
               >
                 Donate

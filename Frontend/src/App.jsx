@@ -1,7 +1,7 @@
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Login from "./pages/Login";
-import Signin from "./pages/Signup";
+import AllNgosPage from "./pages/Allngopage";
 import { Toaster } from "react-hot-toast";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -10,6 +10,7 @@ import NgoRoutes from "./Routes/NgoRoutes";
 import AdminRoutes from "./Routes/AdminRoutes";
 import { Route, Routes, BrowserRouter as Router, useLocation } from "react-router-dom";
 import MultiStepSignup from "./pages/MultiStepSignup";
+import ProtectedRoute from "./pages/ProtectedRoute";
 
 function Layout() {
   const location = useLocation();
@@ -21,9 +22,10 @@ function Layout() {
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/user/*" element={<UserRoutes />} />
-          <Route path="/ngo/*" element={<NgoRoutes />} />
-          <Route path="/admin/*" element={<AdminRoutes />} />
+          <Route path="/allngos" element={<AllNgosPage />} />
+          <Route path="/user/*" element={<ProtectedRoute><UserRoutes /></ProtectedRoute>} />
+          <Route path="/ngo/*" element={<ProtectedRoute><NgoRoutes /></ProtectedRoute>} />
+          <Route path="/admin/*" element={<ProtectedRoute><AdminRoutes /></ProtectedRoute>} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<MultiStepSignup />} />
           <Route path="/about" element={<About />} />
