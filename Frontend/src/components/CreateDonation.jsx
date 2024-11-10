@@ -1,14 +1,32 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import DonationTable from './DonationTable';
+import axios from 'axios';
 
 const CreateDonation = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const [donations, setDonations] = useState([]);
 
-  const onSubmit = (data) => {
-    setDonations([...donations, data]); 
-    reset(); 
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post('http://localhost:4000/api/ngo/addDonation', {
+        headers: {
+          'Content-Type': 'application/json',
+          'authriazation': `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const result = await response.json();
+      setDonations([...donations, result]); 
+      reset(); 
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
   };
 
   const handleDelete = (index) => {
@@ -27,19 +45,6 @@ const CreateDonation = () => {
         </h2>
         <div className="grid md:grid-cols-2 gap-x-4">
           {/* NGO Name Field */}
-          <div className="mb-4">
-            <label htmlFor="ngoName" className="block text-xl md:text-2xl font-semibold text-gray-600 mb-1">
-              NGO Name
-            </label>
-            <input
-              type="text"
-              id="ngoName"
-              {...register('ngoName', { required: 'NGO Name is required' })}
-              className={`w-full px-4 py-2 border ${errors.ngoName ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-green-400`}
-              placeholder="Enter NGO name"
-            />
-            {errors.ngoName && <p className="text-red-500 text-xs mt-1">{errors.ngoName.message}</p>}
-          </div>
 
           {/* Donation Name Field */}
           <div className="mb-4">

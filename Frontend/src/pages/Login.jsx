@@ -31,6 +31,8 @@ const Signin = () => {
       const role = response.data.role;
       if (token){
         localStorage.setItem("token", token);
+        localStorage.setItem("role", role);
+        localStorage.setItem("id", response.data.id);
       }
       else{
         console.error("No token received from the server.");
