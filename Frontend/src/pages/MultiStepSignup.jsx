@@ -33,11 +33,7 @@ const MultiStepSignup = () => {
 
   const onSubmit = async (data) => {
     try {
-      if (role === "user") {
-        await axios.post("http://localhost:4000/user/signup", data);
-      } else {
-        await axios.post("http://localhost:4000/ngo/signup", data);
-      }
+        await axios.post("http://localhost:4000/api/user/signup", data);
       toast.success("Registration successful");
       reset();
       navigate("/signin");
