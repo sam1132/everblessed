@@ -49,8 +49,8 @@ const DonorList = () => {
     return (
         <div>
             <div className="border-blue-600 border-2 rounded-md overflow-x-auto">
-                <table className="min-w-full border-spacing-4">
-                    <thead>
+                <table className="min-w-full border-spacing-4  text-white">
+                    <thead className='bg-[#0a2463] text-white'>
                         <tr>
                             <th className="px-4 py-2 text-left text-sm sm:text-base">Name</th>
                             <th className="px-4 py-2 text-left text-sm sm:text-base">Email</th>
@@ -59,22 +59,22 @@ const DonorList = () => {
                             <th className="px-4 py-2 text-left text-sm sm:text-base">Message</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className=''>
                         {loading ? (
-                            <tr>
+                            <tr className='bg-[#2196f3]'>
                                 <td colSpan={5} className="text-center py-4 text-sm sm:text-base">
                                     Loading...
                                 </td>
                             </tr>
                         ) : error ? (
-                            <tr>
+                            <tr className='bg-[#2196f3]'>
                                 <td colSpan={5} className="text-center py-4 text-sm sm:text-base">
                                     {error}
                                 </td>
                             </tr>
                         ) : currentDonors.length > 0 ? (
                             currentDonors.map((donor) => (
-                                <tr key={donor.id || donor.email}> {/* Ensure unique key */}
+                                <tr key={donor.id || donor.email} className='bg-[#2196f3]'> {/* Ensure unique key */}
                                     <td className="px-2 py-2 text-xs sm:text-sm md:text-base whitespace-normal">{donor.name}</td>
                                     <td className="px-2 py-2 text-xs sm:text-sm md:text-base whitespace-pre">{donor.email}</td>
                                     <td className="px-2 py-2 text-xs sm:text-sm md:text-base whitespace-normal">{donor.donationCount}</td>
