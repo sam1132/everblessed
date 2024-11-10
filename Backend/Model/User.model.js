@@ -27,6 +27,10 @@ const userSchema = new mongoose.Schema(
         type: String, 
         required: true 
     },
+    pickupLocation: {
+      type: String,
+      default: '',
+  },
     role: {
       type: String,
       enum: ["user", "admin"],

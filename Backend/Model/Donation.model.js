@@ -9,6 +9,14 @@ const donationSchema = new mongoose.Schema({
         ref: 'NGO',
         required: true,  
     },
+    description: {
+        type: String,
+        required: true,
+    },
+    quantityNeeded: {
+        type: Number,
+        required: true,
+    },
     users: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -22,10 +30,6 @@ const donationSchema = new mongoose.Schema({
         type: String,
         enum: ['pending', 'approved', 'rejected'],
         default: 'pending',  
-    },
-    pickupLocation: {
-        type: String,
-        default: '', 
     },
 }, { timestamps: true });
 
