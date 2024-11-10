@@ -4,6 +4,7 @@ import cors from 'cors';
 import connectDB from './db/connectdb.js';
 import userRoute from './route/user.route.js';
 import adminroutes from './route/admin.route.js';
+import ngoRoutes from './route/ngo.route.js';
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -13,7 +14,7 @@ connectDB();
 app.use(express.json());
 app.use(cors());
 app.use('/api/user',userRoute);
-
+app.use('/api/ngo',ngoRoutes);
 app.use('/admin',adminroutes);
 
 app.listen(port, () => {
