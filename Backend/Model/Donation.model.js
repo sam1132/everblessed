@@ -7,7 +7,7 @@ const donationSchema = new mongoose.Schema({
     ngo: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'NGO',
-        required: true,  
+        required: true,
     },
     description: {
         type: String,
@@ -23,9 +23,10 @@ const donationSchema = new mongoose.Schema({
     }],
     donationType: {
         type: [String],
-        enum: ['book', 'blankets', 'toys', 'stationary', 'anything'],
+        enum: ['books', 'blankets', 'toys', 'stationary', 'anything', 'clothes', 'food'],
         required: true,  
-    },
+    }
+    ,
     status: {
         type: String,
         enum: ['pending', 'approved', 'rejected'],

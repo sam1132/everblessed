@@ -1,6 +1,6 @@
 import React from "react";
 import hero from "../assets/hero.jpg";
-const NgoCard = ({ title, organization, description, totalDonation ,onDonateClick}) => {
+const NgoCard = ({ title, description, totalDonation ,onDonateClick}) => {
   return (
     <div className="my-7 flex flex-col lg:flex-row w-full max-w-4xl mx-auto shadow-md rounded-md">
       <div className="w-full lg:w-72">
@@ -14,7 +14,6 @@ const NgoCard = ({ title, organization, description, totalDonation ,onDonateClic
         <div className="flex flex-col lg:flex-row justify-between">
           <div className="mb-3 lg:mb-0">
             <h1 className="font-semibold text-xl lg:text-2xl">{title}</h1>
-            <p className="text-sm text-gray-500">By {organization}</p>
           </div>
           <div className="text-left lg:text-right">
             <h1 className="font-semibold text-xl lg:text-2xl">Total Donation made</h1>

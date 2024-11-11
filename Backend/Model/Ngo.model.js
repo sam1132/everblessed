@@ -24,7 +24,7 @@ const ngoSchema = new mongoose.Schema({
         unique: true,},
     thingsRequired: {
         type: [String],
-        enum: ['book', 'blankets', 'toys', 'food', 'anything'],
+        enum: ['book', 'blankets', 'toys', 'food', 'anything','clothes','stationary'],
         default: ['anything'],  
         
     },

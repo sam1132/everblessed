@@ -3,7 +3,7 @@ import Donation from './Model/Donation.model.js';
 import User from './Model/User.model.js';
 import NGO from './Model/Ngo.model.js';
 
-const donationTypes = ['book', 'blankets', 'toys', 'stationary', 'anything'];
+const donationTypes = ['books', 'blankets', 'toys', 'food', 'anything', 'clothes', 'stationary'];
 const donationStatuses = ['pending', 'approved', 'rejected'];
 
 async function generateDonations() {
@@ -42,11 +42,14 @@ async function generateDonations() {
 
                 // Create the donations for the current day
                 for (let i = 0; i < numberOfDonations; i++) {
+                    const donationType = getRandomItem(donationTypes);
                     const donationData = {
                         donationName: `Donation for Day ${day} - ${i + 1}`,
                         ngo: ngo._id,
+                        description: "This is the description of the donation.",
+                        quantityNeeded: Math.floor(Math.random() * 100) + 1, // Random quantity between 1 and 100
                         users: getRandomUsers(users),
-                        donationType: getRandomItem(donationTypes),
+                        donationType: donationType,
                         status: getRandomItem(donationStatuses),
                         pickupLocation: `Pickup Location for Day ${day}`,
                         createdAt: currentDate,
