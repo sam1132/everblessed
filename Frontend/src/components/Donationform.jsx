@@ -1,6 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import {useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const DonationForm = () => {
     const navigate = useNavigate();
@@ -14,10 +16,33 @@ const DonationForm = () => {
   const params = new URLSearchParams(location.search);
   const defaultCategory = params.get("category") || 'anything';
 
-  const onSubmit = (data) => {
-    console.log(data);
-    reset();
-    navigate('/')
+
+  const onSubmit = async (data) => {
+    const id = params.get("id");
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await axios.post('http://localhost:4000/api/ngo/Donated', {
+        ...data,
+        id,
+        token
+      }, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      if (response.status === 200) {
+        toast.success("Donation submitted successfully");
+        reset();
+        navigate('/');
+      } else {
+        console.error("Failed to submit donation");
+      }
+    } catch (error) {
+      console.error("Failed to submit donation", error);
+    }
   };
 
   return (
