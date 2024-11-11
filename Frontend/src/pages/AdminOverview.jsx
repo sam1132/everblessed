@@ -92,7 +92,8 @@ const AdminOverview = () => {
     const fetchTotalDonations = async () => {
       try {
         const response = await axios.get('http://localhost:4000/admin/getTotalDonationCount');
-        setTotalDonations(response.data.totalDonations); // Update the state with the fetched data
+        console.log(response.data);
+        setTotalDonations(response.data.totalDonations); 
       } catch (error) {
         console.error("Error fetching total donation count:", error);
       }
@@ -345,9 +346,9 @@ const AdminOverview = () => {
                   <td className="border px-2 py-1">{donor.name}</td>
                   {/* <td className="border px-2 py-1">{donor.campaign}</td> */}
                   <td className="border px-2 py-1">Doantion for Children</td>
-                  <td className="border px-2 py-1">{new Date(donor.time).toLocaleDateString()}</td>  
+                  <td className="border px-2 py-1">{new Date(donor.donationDate).toLocaleDateString()}</td>  
                   {/* <td className="border px-2 py-1">{donor.time}</td> */}
-                  <td className="border px-2 py-1">{donor.donation}</td>
+                  <td className="border px-2 py-1">{donor.donationType}</td>
                 </tr>
               ))
             ) : (

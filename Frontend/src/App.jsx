@@ -15,7 +15,6 @@ import ProtectedRoute from "./pages/ProtectedRoute";
 function Layout() {
   const location = useLocation();
   const hideNavbarFooter = location.pathname.startsWith('/admin') || location.pathname.includes("/ngo/dashboard");
-
   return (
     <div className="flex flex-col min-h-screen">
       {!hideNavbarFooter && <Navbar />}
@@ -36,7 +35,6 @@ function Layout() {
     </div>
   );
 }
-
 function App() {
   return (
     <Router>
@@ -44,5 +42,4 @@ function App() {
     </Router>
   );
 }
-
 export default App;

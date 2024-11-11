@@ -113,13 +113,6 @@ const Signin = () => {
               >
                 Log In
               </button>
-              {/* <div>
-                <div className="my-4 bg-[#007bff] font-bold cursor-pointer text-white rounded-md text-center p-2"  onClick={handleGoogleLogin}>
-                  <p>
-                    <span >Log in with google</span>
-                  </p>
-                </div>
-              </div> */}
               <div className="mt-6 font-semibold text-md">
                 <p>
                   Create an Account

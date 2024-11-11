@@ -125,46 +125,60 @@ export const TotalNGOTypes = asyncHandler(async(req,res)=>{
     }
 })
 
-export const DonationsAccToPickupLocation = asyncHandler(async(req,res)=>{
-    console.log(`Request Body: ${JSON.stringify(req.body,null,2)}`);
-    const {month} = req.body;
-    console.log('month:',month);
-    if(!month){
-        return res.status(400).json({message:"Month is requires"})
+
+export const DonationsAccToPickupLocation = asyncHandler(async (req, res) => {
+    console.log(`Request Body: ${JSON.stringify(req.body, null, 2)}`);
+    const { month } = req.body;
+    console.log('month:', month);
+
+    if (!month) {
+        return res.status(400).json({ message: "Month is required" });
     }
 
-    const startDate = new Date(2024,month-1,1)
-    const endDate = new Date(2024,month,0)
+    const startDate = new Date(2024, month - 1, 1);
+    const endDate = new Date(2024, month, 0);
 
     const donationsLocation = [
         {
-            $match:{
-                createdAt:{
-                    $gte:startDate,
-                    $lt:endDate
+            $match: {
+                createdAt: {
+                    $gte: startDate,
+                    $lt: endDate
                 }
             }
         },
         {
-            $group:{
-                _id:"$pickupLocation",
-                count:{$sum:1}
+            $lookup: {
+                from: 'users',
+                localField: 'users',
+                foreignField: '_id',
+                as: 'userDetails'
             }
-        },{
-            $sort:{
-                count:-1
+        },
+        {
+            $unwind: "$userDetails"
+        },
+        {
+            $group: {
+                _id: "$userDetails.address", // Group by the user's address
+                count: { $sum: 1 }
+            }
+        },
+        {
+            $sort: {
+                count: -1
             }
         }
-    ]
+    ];
 
-    try{
-        const data = await Donation.aggregate(donationsLocation)
-        res.status(200).json(data)
-    }catch(error){
-        console.error("Error fetching donations data:",error)
-        res.status(500).json({error:"Internal Server Error"})
+    try {
+        const data = await Donation.aggregate(donationsLocation);
+        res.status(200).json(data);
+    } catch (error) {
+        console.error("Error fetching donations data:", error);
+        res.status(500).json({ error: "Internal Server Error" });
     }
-})
+});
 
 export const TopDonors = asyncHandler(async (req, res) => {
     console.log(`Request Body: ${JSON.stringify(req.body, null, 2)}`);

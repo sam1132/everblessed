@@ -140,15 +140,28 @@ export const getTotalDonationsPerMonth = asyncHandler(async (req, res) => {
   });
 
   
-export const getTotalDonationCount = asyncHandler(async (req, res) => {
+
+
+
+  
+  export const getTotalDonationCount = asyncHandler(async (req, res) => {
     try {
-      const totalDonations = await Donation.countDocuments(); // Counts all documents in the Donation collection
-      res.status(200).json({ totalDonations });
+      const uniqueUserCount = await Donation.aggregate([
+        { $unwind: "$users" },           
+        { $group: { _id: "$users" } },   
+        { $count: "totalUsers" }          
+      ]);
+  
+      const count = uniqueUserCount[0]?.totalUsers || 0; 
+      res.status(200).json({ totalUsers: count });
     } catch (error) {
-      console.error("Error fetching total donation count:", error);
+      console.error("Error fetching total user count in donations:", error);
       res.status(500).json({ message: "Server error" });
     }
   });
+  
+
+  
 
 
   
@@ -201,46 +214,46 @@ export const getLastMonthDonationCount = asyncHandler(async (req, res) => {
     
 
 
-// Get the latest donors
-export const getLatestDonors = asyncHandler(async (req, res) => {
-  try {
-    // Fetch the latest donors based on donation timestamp (or other criteria)
-    const latestDonors = await Donation.aggregate([
-      {
-        $unwind: "$users" // Flatten the users array
-      },
-      {
-        $lookup: {
-          from: "users", // Join with the User collection
-          localField: "users", // Field in Donation collection
-          foreignField: "_id", // Field in User collection
-          as: "donorDetails" // Store joined data in 'donorDetails'
-        }
-      },
-      {
-        $unwind: "$donorDetails" // Flatten the donorDetails array
-      },
-      {
-        $sort: { "donorDetails.createdAt": -1 } // Sort by the most recent donor (descending order)
-      },
-      {
-        $project: {
-          _id: 0,
-          email: "$donorDetails.email", 
-          name: "$donorDetails.name", 
-          campaign: "$donationName", 
-          time: "$createdAt", 
-          donation: "$donationType" 
-        }
-      },
-      {
-        $limit: 10 // Get the latest 10 donors (you can change this number)
-      }
-    ]);
 
-    res.status(200).json(latestDonors); // Return the latest donors in the response
-  } catch (error) {
-    console.error("Error fetching latest donors:", error);
-    res.status(500).json({ message: "Server error" });
-  }
-});
+    export const getLatestDonors= asyncHandler(async (req, res) => {
+      try {
+        const latestDonations = await Donation.aggregate([
+          {
+            $sort: { createdAt: -1 } 
+          },
+          {
+            $unwind: "$users"
+          },
+          {
+            $lookup: {
+              from: "users", 
+              localField: "users", 
+              foreignField: "_id", 
+              as: "donorDetails"
+            }
+          },
+          {
+            $unwind: "$donorDetails"
+          },
+          {
+            $project: {
+              _id: 0,
+              email: "$donorDetails.email", 
+              name: "$donorDetails.name", 
+              campaign: "$donationName", 
+              donationDate: "$createdAt", 
+              donationType: "$donationType"
+            }
+          },
+          {
+            $limit: 10 
+          }
+        ]);
+    
+        res.status(200).json(latestDonations); 
+      } catch (error) {
+        console.error("Error fetching latest donations:", error);
+        res.status(500).json({ message: "Server error" });
+      }
+    });
+    
