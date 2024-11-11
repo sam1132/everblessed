@@ -1,34 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NgoCard from "../components/NgoCard";
 import DonationForm from "../components/Donationform";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AllNgosPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [filterType, setFilterType] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const navigate = useNavigate();   
+  const [ngos, setNgos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
-  const ngos = [
-    {
-      title: "Donate Books",
-      organization: "The Educator",
-      description:
-        "We are a group of educators who are working towards providing education to the underprivileged children. We are looking for donations in the form of books.",
-      type: "Books",
-      totalDonation: "200",
-    },
-    {
-      title: "Food Drive",
-      organization: "Feed the Need",
-      description:
-        "Help us provide food supplies to families in need. Every donation helps fight hunger and provide essential meals.",
-      type: "Food",
-      totalDonation: "500",
-    },
-  ];
+
+  useEffect(() => {
+    const fetchNgos = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/api/ngo/getDonations");
+        setNgos(response.data);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+    fetchNgos();
+  }, []);
 
   const filteredNgos = ngos.filter((ngo) => {
     return filterType ? ngo.type === filterType : true;
@@ -42,10 +43,19 @@ const AllNgosPage = () => {
   const resetFilter = () => {
     setFilterType(null);
   };
-  const handleDonateClick = (category) => {
-    setSelectedCategory(category);
-navigate("/ngo/donate?category=" + category);
-};
+
+  const handleDonateClick = (id) => {
+    navigate("/ngo/donate?id=" + id);
+  };
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
   return (
     <div className="max-w-[95rem] mx-auto px-8 md:px-10 pt-7 md:pt-0">
       <div className="relative inline-block text-left">
@@ -95,7 +105,7 @@ navigate("/ngo/donate?category=" + category);
               </li>
               <li>
                 <button
-                  onClick={() => handleFilter("stationary")}
+                  onClick={() => handleFilter("Stationary")}
                   className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
                 >
                   Stationary
@@ -120,11 +130,10 @@ navigate("/ngo/donate?category=" + category);
           filteredNgos.map((ngo, index) => (
             <NgoCard
               key={index}
-              title={ngo.title}
-              organization={ngo.organization}
+              title={ngo.donationName}
               description={ngo.description}
-              totalDonation={ngo.totalDonation}
-              onDonateClick={() => handleDonateClick(ngo.type)}
+              totalDonation={ngo.quantityNeeded}
+              onDonateClick={() => handleDonateClick(ngo._id)}
             />
           ))
         ) : (
